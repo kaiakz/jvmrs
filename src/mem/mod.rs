@@ -10,5 +10,5 @@ pub enum Slot {
     Char(u16),
     Float(f32),
     Double(f64),
-    Ref(Option<Box<Slot>>),
+    Ref,
 }

@@ -1,7 +1,6 @@
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
 use crate::mem::frame::Frame;
-use crate::mem::Slot;
 
 pub struct NOP {}
 

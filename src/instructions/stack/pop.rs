@@ -3,23 +3,23 @@ use crate::instructions::Instruction;
 use crate::mem::frame::Frame;
 use crate::mem::Slot;
 
-pub fn pop2(frame: &mut Frame) -> Vec<Type> {
-    let mut v: Vec<Type> = Vec::new();
+pub fn pop2(frame: &mut Frame) -> Vec<Slot> {
+    let mut v: Vec<Slot> = Vec::new();
     v.push(frame.operand_stack_pop());
     match v[0] {
-            Type::Long(_val) => {},
-            Type::Double(_val) => {},
+            Slot::Long(_val) => {},
+            Slot::Double(_val) => {},
             _ => {v.push(frame.operand_stack_pop());},
     };
     v
 }
 
-pub fn pop1(frame: &mut Frame) -> Vec<Type> {
-    let mut v: Vec<Type> = Vec::new();
+pub fn pop1(frame: &mut Frame) -> Vec<Slot> {
+    let mut v: Vec<Slot> = Vec::new();
     v.push(frame.operand_stack_pop());
     match v[0] {
-        Type::Long(_val) => {panic!("pop does not support LONG")},
-        Type::Double(_val) => {panic!("pop does not support DOUBLE")},
+        Slot::Long(_val) => {panic!("pop does not support LONG")},
+        Slot::Double(_val) => {panic!("pop does not support DOUBLE")},
         _ => v,
     }
 }

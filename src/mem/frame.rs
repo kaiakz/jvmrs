@@ -14,7 +14,7 @@ impl Frame {
         // local_variables.resize(max_local_variables, Slot::Ref(None));
 
         for _i in 0..max_local_variables {
-            local_variables.push(Slot::Ref(None));
+            local_variables.push(Slot::Ref);
         }
 
         let operand_stack: Vec<Slot> = Vec::with_capacity(max_operand_stack);

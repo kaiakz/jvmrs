@@ -10,7 +10,7 @@ pub struct XCONST {
 ///opcode: 0x01~0x0f
 pub fn new(opcode: u8) -> Box<dyn Instruction> {
     let val: Slot = match opcode {
-        0x01 => Slot::Ref(None),    //aconst_null
+        0x01 => Slot::Ref,    //aconst_null
         0x02 => Slot::Int(-1),      //iconst_m1
         0x03 => Slot::Int(0),
         0x04 => Slot::Int(1),

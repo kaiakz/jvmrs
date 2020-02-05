@@ -3,6 +3,7 @@ pub mod loads;
 pub mod stores;
 pub mod stack;
 pub mod math;
+pub mod conversions;
 
 use crate::utils::bytes;
 use crate::utils::bytes::Bytes;
