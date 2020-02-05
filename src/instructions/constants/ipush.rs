@@ -1,8 +1,7 @@
-use crate::mem::thread;
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
-use crate::mem::thread::Frame;
-use crate::mem::thread::Type;
+use crate::mem::frame::Frame;
+use crate::mem::Slot;
 
 
 ///opcode: 0x01~0x0f
@@ -25,7 +24,7 @@ impl Instruction for BIPUSH {
     }
 
     fn excute(&self, frame: &mut Frame) {
-        frame.operand_stack_push(Type::Int(self.value as i32));
+        frame.operand_stack_push(Slot::Int(self.value as i32));
     }
 }
 
@@ -41,6 +40,6 @@ impl Instruction for SIPUSH {
     }
 
     fn excute(&self, frame: &mut Frame) {
-        frame.operand_stack_push(Type::Int(self.value as i32));
+        frame.operand_stack_push(Slot::Int(self.value as i32));
     }
 }

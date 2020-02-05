@@ -1,7 +1,7 @@
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
-use crate::mem::thread::Frame;
-use crate::mem::thread::Type;
+use crate::mem::frame::Frame;
+use crate::mem::Slot;
 use std::i32;
 
 
@@ -27,9 +27,9 @@ impl Instruction for IINC {
 
     fn excute(&self, frame: &mut Frame) {
         let result = match frame.local_variables_get(self.index) {
-            Type::Int(val) => val + self.consta,
+            Slot::Int(val) => val + self.consta,
             _ => panic!("The local variable at index must contain an int."),
         };
-        frame.local_variables_set(self.index, Type::Int(result));
+        frame.local_variables_set(self.index, Slot::Int(result));
     }
 }

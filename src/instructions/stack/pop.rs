@@ -1,7 +1,7 @@
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
-use crate::mem::thread::Frame;
-use crate::mem::thread::Type;
+use crate::mem::frame::Frame;
+use crate::mem::Slot;
 
 pub fn pop2(frame: &mut Frame) -> Vec<Type> {
     let mut v: Vec<Type> = Vec::new();

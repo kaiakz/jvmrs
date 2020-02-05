@@ -1,7 +1,7 @@
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
-use crate::mem::thread::Frame;
-use crate::mem::thread::Type;
+use crate::mem::frame::Frame;
+use crate::mem::Slot;
 use std::i32;
 use std::i64;
 use std::f32;
@@ -16,15 +16,15 @@ impl Instruction for IADD {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: i32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val,
+            Slot::Int(val) => val,
             _ => panic!("Both value1 and value2 must be of type int."),
         };
         let lhs: i32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val,
+            Slot::Int(val) => val,
             _ => panic!("Both value1 and value2 must be of type int."),
         };
 
-        frame.operand_stack_push(Type::Int(lhs + rhs));
+        frame.operand_stack_push(Slot::Int(lhs + rhs));
         
     }
 }
@@ -37,15 +37,15 @@ impl Instruction for LADD {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: i64 = match frame.operand_stack_pop() {
-            Type::Long(val) => val,
+            Slot::Long(val) => val,
             _ => panic!("Both value1 and value2 must be of type long."),
         };
         let lhs: i64 = match frame.operand_stack_pop() {
-            Type::Long(val) => val,
+            Slot::Long(val) => val,
             _ => panic!("Both value1 and value2 must be of type long."),
         };
 
-        frame.operand_stack_push(Type::Long(lhs + rhs));
+        frame.operand_stack_push(Slot::Long(lhs + rhs));
         
     }
 }
@@ -58,15 +58,15 @@ impl Instruction for FADD {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: f32 = match frame.operand_stack_pop() {
-            Type::Float(val) => val,
+            Slot::Float(val) => val,
             _ => panic!("Both value1 and value2 must be of type float."),
         };
         let lhs: f32 = match frame.operand_stack_pop() {
-            Type::Float(val) => val,
+            Slot::Float(val) => val,
             _ => panic!("Both value1 and value2 must be of type float."),
         };
 
-        frame.operand_stack_push(Type::Float(lhs + rhs));
+        frame.operand_stack_push(Slot::Float(lhs + rhs));
         
     }
 }
@@ -79,15 +79,15 @@ impl Instruction for DADD {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: f64 = match frame.operand_stack_pop() {
-            Type::Double(val) => val,
+            Slot::Double(val) => val,
             _ => panic!("Both value1 and value2 must be of type double."),
         };
         let lhs: f64 = match frame.operand_stack_pop() {
-            Type::Double(val) => val,
+            Slot::Double(val) => val,
             _ => panic!("Both value1 and value2 must be of type double."),
         };
 
-        frame.operand_stack_push(Type::Double(lhs + rhs));
+        frame.operand_stack_push(Slot::Double(lhs + rhs));
         
     }
 }

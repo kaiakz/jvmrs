@@ -1,7 +1,7 @@
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
-use crate::mem::thread::Frame;
-use crate::mem::thread::Type;
+use crate::mem::frame::Frame;
+use crate::mem::Slot;
 use std::i32;
 use std::i64;
 use std::f32;
@@ -17,11 +17,11 @@ impl Instruction for INEG {
     fn excute(&self, frame: &mut Frame) {
 
         let lhs: i32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val,
+            Slot::Int(val) => val,
             _ => panic!("value must be of type int."),
         };
 
-        frame.operand_stack_push(Type::Int(-lhs));
+        frame.operand_stack_push(Slot::Int(-lhs));
         
     }
 }
@@ -35,11 +35,11 @@ impl Instruction for LNEG {
     fn excute(&self, frame: &mut Frame) {
 
         let lhs: i64 = match frame.operand_stack_pop() {
-            Type::Long(val) => val,
+            Slot::Long(val) => val,
             _ => panic!("value must be of type long."),
         };
 
-        frame.operand_stack_push(Type::Long(-lhs));
+        frame.operand_stack_push(Slot::Long(-lhs));
         
     }
 }
@@ -53,11 +53,11 @@ impl Instruction for FNEG {
     fn excute(&self, frame: &mut Frame) {
 
         let lhs: f32 = match frame.operand_stack_pop() {
-            Type::Float(val) => val,
+            Slot::Float(val) => val,
             _ => panic!("value must be of type float."),
         };
 
-        frame.operand_stack_push(Type::Float(-lhs));
+        frame.operand_stack_push(Slot::Float(-lhs));
         
     }
 }
@@ -71,11 +71,11 @@ impl Instruction for DNEG {
     fn excute(&self, frame: &mut Frame) {
 
         let lhs: f64 = match frame.operand_stack_pop() {
-            Type::Double(val) => val,
+            Slot::Double(val) => val,
             _ => panic!("value must be of type double."),
         };
 
-        frame.operand_stack_push(Type::Double(-lhs));
+        frame.operand_stack_push(Slot::Double(-lhs));
         
     }
 }

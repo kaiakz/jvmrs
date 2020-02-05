@@ -1,7 +1,7 @@
 use crate::instructions::ByteCode;
 use crate::instructions::Instruction;
-use crate::mem::thread::Frame;
-use crate::mem::thread::Type;
+use crate::mem::frame::Frame;
+use crate::mem::Slot;
 use std::u32;
 use std::u64;
 use std::i32;
@@ -19,18 +19,18 @@ impl Instruction for ISH {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: u32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val as u32,
+            Slot::Int(val) => val as u32,
             _ => panic!("value2 must be of type int."),
         };
         let lhs: i32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val,
+            Slot::Int(val) => val,
             _ => panic!("value1 must be of type int."),
         };
 
         if self.left {
-            frame.operand_stack_push(Type::Int(lhs.wrapping_shl(rhs))); 
+            frame.operand_stack_push(Slot::Int(lhs.wrapping_shl(rhs))); 
         } else {
-            frame.operand_stack_push(Type::Int(lhs.wrapping_shr(rhs)));
+            frame.operand_stack_push(Slot::Int(lhs.wrapping_shr(rhs)));
         }   
     }
 }
@@ -45,18 +45,18 @@ impl Instruction for LSH {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: u32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val as u32,
+            Slot::Int(val) => val as u32,
             _ => panic!("value2 must be of type int."),
         };
         let lhs: i64 = match frame.operand_stack_pop() {
-            Type::Long(val) => val,
+            Slot::Long(val) => val,
             _ => panic!("value1 must be of type long."),
         };
 
         if self.left {
-            frame.operand_stack_push(Type::Long(lhs.wrapping_shl(rhs)));
+            frame.operand_stack_push(Slot::Long(lhs.wrapping_shl(rhs)));
         } else {
-            frame.operand_stack_push(Type::Long(lhs.wrapping_shr(rhs)));            
+            frame.operand_stack_push(Slot::Long(lhs.wrapping_shr(rhs)));            
         }
     }
 }
@@ -68,15 +68,15 @@ impl Instruction for IUSHR {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: u32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val as u32,
+            Slot::Int(val) => val as u32,
             _ => panic!("value2 must be of type int."),
         };
         let lhs: u32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val as u32,
+            Slot::Int(val) => val as u32,
             _ => panic!("value1 must be of type int."),
         };
 
-        frame.operand_stack_push(Type::Int(lhs.wrapping_shr(rhs) as i32));
+        frame.operand_stack_push(Slot::Int(lhs.wrapping_shr(rhs) as i32));
     }
 }
 
@@ -88,14 +88,14 @@ impl Instruction for LUSHR {
 
     fn excute(&self, frame: &mut Frame) {
         let rhs: u32 = match frame.operand_stack_pop() {
-            Type::Int(val) => val as u32,
+            Slot::Int(val) => val as u32,
             _ => panic!("value2 must be of type int."),
         };
         let lhs: u64 = match frame.operand_stack_pop() {
-            Type::Long(val) => val as u64,
+            Slot::Long(val) => val as u64,
             _ => panic!("value1 must be of type long."),
         };
 
-        frame.operand_stack_push(Type::Long(lhs.wrapping_shr(rhs) as i64));            
+        frame.operand_stack_push(Slot::Long(lhs.wrapping_shr(rhs) as i64));            
     }
 }

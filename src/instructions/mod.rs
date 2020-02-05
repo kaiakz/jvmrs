@@ -6,7 +6,7 @@ pub mod math;
 
 use crate::utils::bytes;
 use crate::utils::bytes::Bytes;
-use crate::mem::thread::Frame;
+use crate::mem::frame::Frame;
 
 pub struct ByteCode {
     code: Bytes,
