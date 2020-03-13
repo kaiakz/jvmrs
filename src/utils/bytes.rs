@@ -48,6 +48,12 @@ impl ByteStream {
         Ok(u64::from_be_bytes(b))
     }
 
+    pub fn get_i16_be(&mut self) -> io::Result<i16> {
+        let mut b:[u8;2] = Default::default();
+        self.bytes.read_exact(&mut b)?;
+        Ok(i16::from_be_bytes(b))
+    }
+
     pub fn get_i32_be(&mut self) -> io::Result<i32> {
         let mut b:[u8;4] = Default::default();
         self.bytes.read_exact(&mut b)?;
@@ -117,56 +123,48 @@ impl ByteStream {
 //     }
 // }
 
-// #[allow(dead_code)]
 // pub fn get_u8(r:&mut Cursor<Vec<u8>>) -> io::Result<u8> {
 //     let mut b:[u8;1] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(u8::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_u16_be(r:&mut Cursor<Vec<u8>>) -> io::Result<u16> {
 //     let mut b:[u8;2] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(u16::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_u32_be(r:&mut Cursor<Vec<u8>>) -> io::Result<u32> {
 //     let mut b:[u8;4] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(u32::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_u64_be(r:&mut Cursor<Vec<u8>>) -> io::Result<u64> {
 //     let mut b:[u8;8] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(u64::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_i32_be(r:&mut Cursor<Vec<u8>>) -> io::Result<i32> {
 //     let mut b:[u8;4] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(i32::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_i64_be(r:&mut Cursor<Vec<u8>>) -> io::Result<i64> {
 //     let mut b:[u8;8] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(i64::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_f32_be(r:&mut Cursor<Vec<u8>>) -> io::Result<f32> {
 //     let mut b:[u8;4] = Default::default();
 //     r.read_exact(&mut b)?;
 //     Ok(f32::from_be_bytes(b))
 // }
 
-// #[allow(dead_code)]
 // pub fn get_f64_be(r:&mut Cursor<Vec<u8>>) -> io::Result<f64> {
 //     let mut b:[u8;8] = Default::default();
 //     r.read_exact(&mut b)?;
@@ -175,7 +173,6 @@ impl ByteStream {
 
 
 
-// #[allow(dead_code)]
 pub fn get_u8(bytes: &Bytes, pos: usize) -> u8 {
     let b:&[u8; 1] = match bytes.get(pos..pos+1) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -184,7 +181,6 @@ pub fn get_u8(bytes: &Bytes, pos: usize) -> u8 {
     u8::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
 pub fn get_u16_be(bytes: &Bytes, pos: usize) -> u16 {
     let b:&[u8; 2] = match bytes.get(pos..pos+2) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -193,7 +189,6 @@ pub fn get_u16_be(bytes: &Bytes, pos: usize) -> u16 {
     u16::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
 pub fn get_u32_be(bytes: &Bytes, pos: usize) -> u32 {
     let b:&[u8; 4] = match bytes.get(pos..pos+4) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -202,7 +197,6 @@ pub fn get_u32_be(bytes: &Bytes, pos: usize) -> u32 {
     u32::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
 pub fn get_u64_be(bytes: &Bytes, pos: usize) -> u64 {
     let b:&[u8; 8] = match bytes.get(pos..pos+8) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -211,7 +205,14 @@ pub fn get_u64_be(bytes: &Bytes, pos: usize) -> u64 {
     u64::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
+pub fn get_i16_be(bytes: &Bytes, pos: usize) -> i16 {
+    let b:&[u8; 2] = match bytes.get(pos..pos+2) {
+        Some(s) => s.try_into().expect("slice with incorrect length"),
+        None => panic!("out of bounds"),
+    };
+    i16::from_be_bytes(*b)
+}
+
 pub fn get_i32_be(bytes: &Bytes, pos: usize) -> i32 {
     let b:&[u8; 4] = match bytes.get(pos..pos+4) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -220,7 +221,6 @@ pub fn get_i32_be(bytes: &Bytes, pos: usize) -> i32 {
     i32::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
 pub fn get_i64_be(bytes: &Bytes, pos: usize) -> i64 {
     let b:&[u8; 8] = match bytes.get(pos..pos+8) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -229,7 +229,6 @@ pub fn get_i64_be(bytes: &Bytes, pos: usize) -> i64 {
     i64::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
 pub fn get_f32_be(bytes: &Bytes, pos: usize) -> f32 {
     let b:&[u8; 4] = match bytes.get(pos..pos+4) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
@@ -238,7 +237,6 @@ pub fn get_f32_be(bytes: &Bytes, pos: usize) -> f32 {
     f32::from_be_bytes(*b)
 }
 
-// #[allow(dead_code)]
 pub fn get_f64_be(bytes: &Bytes, pos: usize) -> f64 {
     let b:&[u8; 8] = match bytes.get(pos..pos+8) {
         Some(s) => s.try_into().expect("slice with incorrect length"),
